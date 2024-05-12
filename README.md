@@ -1,4 +1,4 @@
-# Библиотека
+# Набор персонала
 ![er-model](src/main/resources/er-model.hh.png)
 
 Проект создаем со сборщиком Maven (в связи с тем, что в Университете не доступен сборщик gradle)
@@ -30,8 +30,11 @@
 * И подтвердить загрузку библиотеки
 
 ## Чтобы осуществить запрос к базе данных необходимо:
-1) Открыть соединение с базой данных - {@link java.sql.Connection}
-2) Определить оператор для SQL-запроса - {@link java.sql.Statement} или его дочерние классы {@link java.sql.PreparedStatement}. При необходимости, вложить данные в SQL-запрос
+1) Открыть соединение с базой данных - [java.sql.Connection](https://docs.oracle.com/javase/8/docs/api/java/sql/Connection.html)
+2) Определить оператор для SQL-запроса - [java.sql.Statement](https://docs.oracle.com/javase/8/docs/api/java/sql/Statement.html) или его дочерние классы [java.sql.PreparedStatement](https://docs.oracle.com/javase/8/docs/api/java/sql/PreparedStatement.html). При необходимости, вложить данные в SQL-запрос
 3) Выполнить SQL-запрос и в зависимости от типа проанализировать результат:
-    + Простой запрос - executeQuery - результат запроса {@link java.sql.ResultSet}
-    + Запрос на изменение - executeUpdate - результат запроса представляет собой количество измененных строк (также можно затребовать возвращаемые данные и считать из через {@link java.sql.ResultSet})
+    + Простой запрос - executeQuery - результат запроса [java.sql.ResultSet](https://docs.oracle.com/javase/8/docs/api/java/sql/ResultSet.html)
+    + Запрос на изменение - executeUpdate - результат запроса представляет собой количество измененных строк (также можно затребовать возвращаемые данные и считать из через [java.sql.ResultSet](https://docs.oracle.com/javase/8/docs/api/java/sql/ResultSet.html))
+
+## Полезные ресурсы
+* [The basics of the JDBC API](https://docs.oracle.com/javase/tutorial/jdbc/basics/index.html)

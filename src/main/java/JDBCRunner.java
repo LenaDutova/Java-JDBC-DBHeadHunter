@@ -211,7 +211,7 @@ public class JDBCRunner {
 
         ResultSet rs = statement.getGeneratedKeys(); // прочитать запрошенные данные от БД
         if (rs.next()) { // прокрутить к первой записи, если они есть
-            System.out.println("Идентификатор автора " + rs.getInt(1));
+            System.out.println("Идентификатор миньона " + rs.getInt(1));
         }
 
         System.out.println("INSERTed " + count + " minion");
