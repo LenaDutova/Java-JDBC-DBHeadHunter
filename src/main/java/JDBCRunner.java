@@ -44,7 +44,9 @@ public class JDBCRunner {
 
         } catch (SQLException e) {
             // При открытии соединения, выполнении запросов могут возникать различные ошибки
-            // Согласно стандарту SQL:2008 в ситуациях нарушения ограничений уникальности (в т.ч. дублирования данных) возникают ошибки соответствующие статусу (или дочерние ему): SQLState 23000 - Integrity Constraint Violation
+            // Согласно стандарту SQL:2008 в ситуациях нарушения ограничений уникальности (в т.ч. дублирования данных)
+            // возникают ошибки соответствующие статусу (или дочерние ему):
+            // SQLState 23000 - Integrity Constraint Violation
             if (e.getSQLState().startsWith("23")){
                 System.out.println("Произошло дублирование данных");
             } else throw new RuntimeException(e);
@@ -64,10 +66,15 @@ public class JDBCRunner {
     }
 
     public static boolean checkDB () {
+        Connection connection = null;
         try {
-            Connection c = DriverManager.getConnection(DATABASE_URL, USER_NAME, DATABASE_PASS);
+            connection = DriverManager.getConnection(DATABASE_URL, USER_NAME, DATABASE_PASS);
             return true;
         } catch (SQLException e) {
+            try {
+                if (connection != null && !connection.isClosed()) connection.close();
+            } catch (SQLException ex) {throw new RuntimeException(ex);}
+
             System.out.println("Нет подключения к базе данных! Проверьте имя базы, путь к базе или разверните локально резервную копию согласно инструкции");
             throw new RuntimeException(e);
         }
@@ -93,6 +100,8 @@ public class JDBCRunner {
             param0 = rs.getInt(column0);    // если точно уверены в типе данных ячейки, можно его сразу преобразовать
             System.out.println(param0 + " | " + param1 + " | " + param2);
         }
+
+        statement.close();
         System.out.println();
     }
 
@@ -110,6 +119,8 @@ public class JDBCRunner {
             param2 = rs.getInt(3);
             System.out.println(param0 + " | " + param1 + " | " + param2);
         }
+
+        statement.close();
         System.out.println();
     }
 
@@ -139,6 +150,8 @@ public class JDBCRunner {
             }
             System.out.println(param);
         }
+
+        statement.close();
         System.out.println();
     }
 
@@ -169,6 +182,8 @@ public class JDBCRunner {
             }
             System.out.println(param);
         }
+
+        statement.close();
         System.out.println();
     }
 
@@ -197,6 +212,8 @@ public class JDBCRunner {
             }
             System.out.println(param);
         }
+
+        statement.close();
         System.out.println();
     }
 
@@ -215,6 +232,7 @@ public class JDBCRunner {
         int count = statement.executeUpdate();  // выполняем запрос на коррекцию и возвращаем количество измененных строк
         System.out.println("INSERTed " + count + " minions");
 
+        statement.close();
         getAllMinions(connection);
     }
 
@@ -230,6 +248,7 @@ public class JDBCRunner {
         int count = statement.executeUpdate();  // выполняем запрос на коррекцию и возвращаем количество измененных строк
         System.out.println("INSERTed " + count + " minions");
 
+        statement.close();
         getAllMinions(connection);
     }
 
@@ -247,6 +266,7 @@ public class JDBCRunner {
             System.out.println("Идентификатор созданного миньона " + rs.getInt(1));
         }
 
+        statement.close();
         getAllMinions(connection);
     }
 
@@ -264,6 +284,7 @@ public class JDBCRunner {
             System.out.println("Идентификатор созданного миньона " + rs.getInt(1) + ", количество глаз " + + rs.getInt(3));
         }
 
+        statement.close();
         getAllMinions(connection);
     }
 
@@ -279,6 +300,7 @@ public class JDBCRunner {
 
         System.out.println("UPDATEd " + count + " minions");
 
+        statement.close();
         getAllMinions(connection);
     }
 
@@ -293,6 +315,7 @@ public class JDBCRunner {
         int count = statement.executeUpdate(); // выполняем запрос на удаление и возвращаем количество измененных строк
         System.out.println("DELETEd " + count + " minions");
 
+        statement.close();
         getAllMinions(connection);
     }
 
